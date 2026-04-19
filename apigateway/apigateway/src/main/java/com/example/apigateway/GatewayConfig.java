@@ -11,6 +11,8 @@ public class GatewayConfig {
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder routeLocatorBuilder)
     {
-        return routeLocatorBuilder.routes();
+        return routeLocatorBuilder.routes()
+                .route()
+                .build();
     }
 }
