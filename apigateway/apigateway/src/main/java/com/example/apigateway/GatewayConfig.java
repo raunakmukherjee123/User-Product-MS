@@ -12,7 +12,8 @@ public class GatewayConfig {
     public RouteLocator routeLocator(RouteLocatorBuilder routeLocatorBuilder)
     {
         return routeLocatorBuilder.routes()
-                .route()
+                .route("PracticeMicroservice",r->r.path("/api/user/**")
+                        .uri("lb://PracticeMicroservice"))
                 .build();
     }
 }
