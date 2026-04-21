@@ -12,7 +12,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final RestTemplateClient restTemplateClient;
 
-@CircuitBreaker(name = "userService")
+@CircuitBreaker(name = "userService",fallbackMethod = "addProductFallback")
     public void add(ProductRequestDto productRequestDto) {
 //     User user= restTemplate.getForObject("http://localhost:8080/api/user/name/"+productRequestDto.getUserName(), User.class);
         User user=restTemplateClient.getUser(productRequestDto.getUserName());
@@ -20,5 +20,13 @@ public class ProductService {
      product.setName(productRequestDto.getProductName());
         product.setUserId(user.getId());
         productRepository.save(product);
+    }
+
+    // parameters of fallback method should be same as the method in which we implement it + Exception
+    public void addProductFallback(ProductRequestDto productRequestDto,Exception e)
+    {
+        System.out.println("FALLBACK CALLED");
+
+       // return "User service not working";
     }
 }

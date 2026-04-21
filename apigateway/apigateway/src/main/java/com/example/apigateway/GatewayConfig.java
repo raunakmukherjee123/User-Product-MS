@@ -15,6 +15,8 @@ public class GatewayConfig {
                 .route("PracticeMicroservice",r->r.path("/api/user/**")
                         .uri("lb://PracticeMicroservice"))
                 .route("PracticeMicroservice1",r->r.path("/api/product/**")
+                        .filters(f->f.circuitBreaker(config ->
+                                config.setName("appBreaker")))
                         .uri("lb://PracticeMicroservice1"))
                 .build();
     }
