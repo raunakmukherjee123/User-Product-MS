@@ -19,5 +19,6 @@ public class GatewayConfig {
                                 config.setName("appBreaker")))
                         .uri("lb://PracticeMicroservice1"))
                 .build();
+
     }
 }
