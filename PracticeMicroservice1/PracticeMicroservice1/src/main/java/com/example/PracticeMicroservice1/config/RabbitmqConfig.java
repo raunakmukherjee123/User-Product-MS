@@ -1,6 +1,11 @@
 package com.example.PracticeMicroservice1.config;
 
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,5 +46,34 @@ public class RabbitmqConfig {
                 .with(routingKey);
     }
 
+    // this method automatically declares queues, binding and exchange when the app starts
+    @Bean
+    public AmqpAdmin amqpAdmin(ConnectionFactory connectionFactory)
+    {
+        RabbitAdmin rabbitAdmin=new RabbitAdmin(connectionFactory);
+        rabbitAdmin.setAutoStartup(true);
+
+        return rabbitAdmin;
+    }
+
+    // converts java objects into json and vice versa
+    @Bean
+    public MessageConverter messageConverter()
+    {
+        return new JacksonJsonMessageConverter();
+    }
+
+    // used to send messages to rabbitmq
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory)
+    {
+        RabbitTemplate rabbitTemplate=new RabbitTemplate(connectionFactory);
+
+        rabbitTemplate.setMessageConverter(messageConverter());
+
+        rabbitTemplate.setExchange(exchangeName);
+
+        return rabbitTemplate;
+    }
 
 }
