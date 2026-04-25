@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: Notification
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  # these config is used in RabbitmqConfig class of product microservice
+rabbitmq:
+  exchange:
+    name: product.exchange
+  queue:
+    name: product.queue
+  routing:
+    key: product.tracking
+
+server:
+  port: 8084

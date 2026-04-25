@@ -1,4 +1,4 @@
-package com.example.PracticeMicroservice1.config;
+package com.example.Notification.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -62,19 +62,6 @@ public class RabbitmqConfig {
     public MessageConverter messageConverter()
     {
         return new JacksonJsonMessageConverter();
-    }
-
-    // used to send messages to rabbitmq
-    @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory)
-    {
-        RabbitTemplate rabbitTemplate=new RabbitTemplate(connectionFactory);
-
-        rabbitTemplate.setMessageConverter(messageConverter());
-
-        rabbitTemplate.setExchange(exchangeName);
-
-        return rabbitTemplate;
     }
 
 }

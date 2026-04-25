@@ -1,0 +1,32 @@
+#services:
+#  rabbitmq:
+#    image: rabbitmq:10-management
+#    container_name: rabbitmq_container_ms
+#    ports:
+#      - "5672:5672"     # AMQP (Spring Boot will use this)
+#      - "15672:15672"   # Management UI (browser)
+#    environment:
+#      RABBITMQ_DEFAULT_USER: guest
+#      RABBITMQ_DEFAULT_PASS: guest
+#    networks:
+#      - backend
+#    restart: unless-stopped
+
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_container_ms
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - backend
+    restart: unless-stopped
+
+networks:
+  backend:
+    driver: bridge
