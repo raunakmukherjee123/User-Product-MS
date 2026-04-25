@@ -35,10 +35,13 @@ public class ProductService {
      product.setName(productRequestDto.getProductName());
         product.setUserId(user.getId());
         Product savedProduct=productRepository.save(product);
-//        rabbitTemplate
-//                .convertAndSend(exchangeName,routingKey, Map.of("productId",savedProduct.getId()));
 
-    rabbitTemplate.convertAndSend(exchangeName, routingKey, "test message");
+        ProductMessageDto productMessageDto=new ProductMessageDto();
+        productMessageDto.setId(savedProduct.getId());
+        productMessageDto.setName(savedProduct.getName());
+        productMessageDto.setUserId(savedProduct.getUserId());
+
+    rabbitTemplate.convertAndSend(exchangeName, routingKey, productMessageDto);
     }
 
     // parameters of fallback method should be same as the method in which we implement it + Exception

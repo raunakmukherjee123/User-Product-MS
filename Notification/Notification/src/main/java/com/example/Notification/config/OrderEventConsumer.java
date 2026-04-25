@@ -1,5 +1,6 @@
 package com.example.Notification.config;
 
+import com.example.Notification.ProductMessageDto;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,8 +11,10 @@ public class OrderEventConsumer {
     private String queueName;
 
     @RabbitListener(queues = "${rabbitmq.queue.name}")
-    public void handleEvent(String message)
+    public void handleEvent(ProductMessageDto productMessageDto)
     {
-        System.out.println("The message received: "+message);
+        System.out.println("The product id received: "+productMessageDto.getId());
+        System.out.println("The user id received: "+productMessageDto.getUserId());
+        System.out.println("The product name received: "+productMessageDto.getName());
     }
 }
