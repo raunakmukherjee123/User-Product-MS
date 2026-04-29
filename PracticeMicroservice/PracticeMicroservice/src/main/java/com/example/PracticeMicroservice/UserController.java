@@ -36,4 +36,10 @@ public class UserController {
     {
         return userService.getAllUser(pageNo,pageSize,sortBy);
     }
+
+    @PatchMapping("/{id}")
+    public void updateName(@PathVariable("id") Integer id,@RequestBody UserName userName)
+    {
+        userService.updateName(id,userName);
+    }
 }

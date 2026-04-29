@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,5 +52,14 @@ public class UserService {
                 .pageSize(userPage.getSize())
                 .totalElements(userPage.getTotalElements())
                 .build();
+    }
+
+    public void updateName(Integer id,UserName userName) {
+        User user=userRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("No user found"));
+
+        user.setName(userName.getName());
+
+        userRepository.save(user);
     }
 }
