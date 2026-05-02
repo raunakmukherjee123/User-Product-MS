@@ -11,18 +11,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/producer")
 public class KafkaProducer {
 
-    private final KafkaTemplate<String,String> kafkaTemplate;
+    private final KafkaTemplate<String,DemoDto> kafkaTemplate;
 
-    public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
+    public KafkaProducer(KafkaTemplate<String, DemoDto> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
+
+//    @PostMapping("/send")
+//    public String sendMessage(@RequestParam String message)
+//    {
+//       kafkaTemplate.send("ms-tpoic",message);
+//
+//       return "Message sent: "+message;
+//    }
 
     @PostMapping("/send")
     public String sendMessage(@RequestParam String message)
     {
-       kafkaTemplate.send("ms-tpoic",message);
+        DemoDto demoDto=new DemoDto("Rahul",21);
+        kafkaTemplate.send("ms-tpoic",demoDto);
 
-       return "Message sent: "+message;
+        return "Message sent: "+demoDto.toString();
     }
 
 }
