@@ -1,6 +1,7 @@
 package com.example.PracticeMicroservice1;
 
 import com.example.PracticeMicroservice1.RestTemplate.RestTemplateClient;
+import com.example.PracticeMicroservice1.projections.ProductProjections;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -50,5 +51,9 @@ public class ProductService {
         System.out.println("FALLBACK CALLED");
 
        // return "User service not working";
+    }
+
+    public ProductMessageDto getProduct() {
+        ProductProjections productProjections=productRepository.findProduct();
     }
 }

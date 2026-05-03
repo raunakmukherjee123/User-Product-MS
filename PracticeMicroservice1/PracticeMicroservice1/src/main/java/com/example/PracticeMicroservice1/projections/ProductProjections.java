@@ -4,4 +4,6 @@ public interface ProductProjections {
   public Integer getUserId();
 
   public String getName();
+
+  public Integer getId();
 }

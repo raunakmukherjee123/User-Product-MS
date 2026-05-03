@@ -23,4 +23,9 @@ public class ProductController {
     public PageResponse<?> getAllUser(){
         return providerFeignClient.getAllUser(0,4,"id");
     }
+
+    @GetMapping("/get")
+    public ProductMessageDto getProduct(){
+        return productService.getProduct();
+    }
 }
